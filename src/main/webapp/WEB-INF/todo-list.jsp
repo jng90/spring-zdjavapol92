@@ -1,7 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page language="java" pageEncoding="UTF-8" contentType="text/html" %>
 <html>
+<%@include file="head.jspf"%>
 <body>
+<%@include file="nav.jspf"%>
 <h2>Lista zadan</h2>
     <table>
         <thead>
@@ -27,16 +29,16 @@
                     ${todo.deadline}
                 </td>
                 <td>
-                    <form action="/todo/completed" method="post">
-                        <input type="hidden" name="id" value="${todo.id}">
                     <c:if test="${todo.completed}">
                         <input type="checkbox"checked disabled>
                     </c:if>
                     <c:if test="${!todo.completed}">
-                    <input type="checkbox" name="completed">
-                    </c:if>
+                    <form action="/todo/completed" method="post">
+                        <input type="hidden" name="id" value="${todo.id}">
+                        <input type="checkbox" name="completed" required>
                         <button type="submit">Zapisz wykonanie</button>
                     </form>
+                    </c:if>
                 </td>
                 <td>
                     ${todo.created}

@@ -1,6 +1,8 @@
 <%@page language="java" pageEncoding="UTF-8" contentType="text/html" %>
 <html>
+<%@include file="head.jspf"%>
 <body>
+<%@include file="nav.jspf"%>
     <h2>Dodaj zadanie do wykonania</h2>
     <form method="post">
         <label for="title">Tytuł zadania</label><br>
