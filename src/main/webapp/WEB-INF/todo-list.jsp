@@ -4,8 +4,9 @@
 <%@include file="head.jspf"%>
 <body>
 <%@include file="nav.jspf"%>
+<div class="container m-6">
 <h2>Lista zadan</h2>
-    <table>
+    <table class="table">
         <thead>
         <tr>
             <th>Tresc Zadania</th>
@@ -30,13 +31,13 @@
                 </td>
                 <td>
                     <c:if test="${todo.completed}">
-                        <input type="checkbox"checked disabled>
+                        <input class="form-check-input" type="checkbox"checked disabled>
                     </c:if>
                     <c:if test="${!todo.completed}">
                     <form action="/todo/completed" method="post">
                         <input type="hidden" name="id" value="${todo.id}">
-                        <input type="checkbox" name="completed" required>
-                        <button type="submit">Zapisz wykonanie</button>
+                        <input class="form-check-input" type="checkbox" name="completed" required>
+                        <button class="btn btn-outline-danger" for="danger-outlined" type="submit">Zapisz wykonanie</button>
                     </form>
                     </c:if>
                 </td>
@@ -47,8 +48,6 @@
         </c:forEach>
         </tbody>
     </table>
-<li>
-    <a href="/">Strona glowna</a>
-</li>
+</div>
 </body>
 </html>
