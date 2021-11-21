@@ -8,5 +8,8 @@
 <p>Pensja: ${person.salary}</p>
 <a href="${pageContext.request.contextPath}/person">Person</a>
 <a href="${pageContext.request.contextPath}/person/add">Dodaj następna osobe</a>
+<li>
+    <a href="/">Strona glowna</a>
+</li>
 </body>
 </html>

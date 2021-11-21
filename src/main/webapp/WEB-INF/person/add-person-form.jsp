@@ -11,5 +11,8 @@
     <input type="number" name="salary" id="salary"><br>
     <button type="submit">Zapisz</button><button type="reset">Wyczyść</button>
 </form>
+<li>
+    <a href="/">Strona glowna</a>
+</li>
 </body>
 </html>

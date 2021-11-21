@@ -29,7 +29,8 @@ public class TodoServiceMemory implements TodoService {
         add(Todo.builder()
                 .person("Zenek")
                 .title("Koncert")
-                .deadline("2022-15-01")
+                .completed(true)
+                .deadline("2022-11-01")
                 .build());
     }
 
@@ -48,7 +49,8 @@ public class TodoServiceMemory implements TodoService {
 
     @Override
     public void setAsCompleted(long id) {
-        todos.get(id);
+        todos.get(id).setCompleted(true);
+
 
     }
 }
