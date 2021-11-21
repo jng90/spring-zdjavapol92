@@ -1,26 +1,54 @@
 package pl.sda.springzdjavapol92.Service;
 
+import org.springframework.stereotype.Service;
 import pl.sda.springzdjavapol92.model.Todo;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.*;
 
+@Service
 public class TodoServiceMemory implements TodoService {
-    private Map<Integer, Todo> todos = new HashMap<>();
+    private Map<Long, Todo> todos = new HashMap<>();
+    private long currentId = 1;
+
+    public TodoServiceMemory(){
+        Todo todo = Todo.builder()
+                .person("Adam")
+                .title("Spring")
+                .deadline("2021-12-01")
+                .build();
+        add(todo);
+        todo = Todo.builder()
+                .person("Ola")
+                .title("Programowanie Java")
+                .deadline("2022-03-21")
+                .build();
+        add(todo);
+        add(Todo.builder()
+                .person("Zenek")
+                .title("Koncert")
+                .deadline("2022-15-01")
+                .build());
+    }
 
     @Override
-    public void add(Todo todo) {
-
+    public Todo add(Todo todo) {
+        todo.setId(currentId++);
+        todo.setCreated(new Timestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC) * 1000));
+        todos.put(todo.getId(), todo);
+        return todo;
     }
 
     @Override
     public List<Todo> findAll() {
-        return null;
+        return new ArrayList<>(todos.values());
     }
 
     @Override
-    public void setAsCompleted(int id) {
+    public void setAsCompleted(long id) {
+        todos.get(id);
 
     }
 }

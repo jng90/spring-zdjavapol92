@@ -5,7 +5,7 @@ import pl.sda.springzdjavapol92.model.Todo;
 import java.util.List;
 
 public interface TodoService {
-    void add(Todo todo);
+    Todo add(Todo todo);
     List<Todo> findAll();
-    void setAsCompleted(int id);
+    void setAsCompleted(long id);
 }

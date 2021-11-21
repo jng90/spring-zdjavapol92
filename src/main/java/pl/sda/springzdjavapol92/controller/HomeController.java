@@ -5,25 +5,39 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.sda.springzdjavapol92.Service.TodoService;
 import pl.sda.springzdjavapol92.model.Todo;
 
 @Controller
 public class HomeController {
+    private final TodoService todoService;
+
+    public HomeController(TodoService todoService) {
+        this.todoService = todoService;
+    }
 
     @GetMapping("/")
-    public String index(){
+    public String index() {
         return "index";
     }
 
     @GetMapping("/todo/add")
-    public String todoAddForm(){
+    public String todoAddForm() {
         return "todo-add-form";
     }
 
     @PostMapping("/todo/add")
-    public String todoAdd(@ModelAttribute Todo todo, Model model){
-        //TODO dodać nowe zadanie do kolekcji
-        model.addAttribute("todo", todo);
+    public String todoAdd(@ModelAttribute Todo todo, Model model) {
+        model.addAttribute("todo", todoService.add(todo));
         return "confirm-todo";
     }
+
+    @GetMapping("/todo/list")
+    public String todoList(Model model) {
+        model.addAttribute("todos", todoService.findAll());
+        return "todo-list";
+    }
+
+
 }
+

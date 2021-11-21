@@ -1,8 +1,7 @@
-<jsp:useBean id="person" scope="request" type="pl.sda.springzdjavapol92.model.Todo"/>
+<jsp:useBean id="person" scope="request" type="pl.sda.springzdjavapol92.model.Person"/>
 <%@page contentType="text/html" language="java" pageEncoding="UTF-8" %>
 <html>
 <body>
-<%--    Dodaj wyświetlenie pozostałych pól klasy Todo--%>
 <h1> Ok, dodałeś nowa osobe</h1>
 <p>Imie: ${person.firstName}</p>
 <p>Nazwisko: ${person.lastName}</p>
