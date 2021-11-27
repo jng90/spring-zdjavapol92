@@ -88,15 +88,4 @@ public class RestTodoController {
         return ResponseEntity.of(id < 10 ? Optional.of(todo) : Optional.empty());
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleValidationException(MethodArgumentNotValidException exception){
-        Map<String, String> errors = new HashMap<>();
-        exception.getBindingResult().getAllErrors().forEach(
-                error -> {
-                    errors.put(((FieldError)error).getField(), error.getDefaultMessage());
-                }
-        );
-        return errors;
-    }
 }
