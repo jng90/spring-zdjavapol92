@@ -59,7 +59,15 @@ public class RestTodoController {
 
     @PatchMapping("/api/v1/todos/{id}")
     public ResponseEntity<Todo> setTodoAsCompleted(@PathVariable long id){
-
+        //TODO wyciagnac zadanie z repozytorium i ustawic w nim pole completed na true
+        Todo todo = Todo.builder()
+                .id(id)
+                .person("TEST")
+                .deadline("2021-12-12")
+                .title("test")
+                .completed(true)
+                .build();
+        return ResponseEntity.of(id < 10 ? Optional.of(todo) : Optional.empty());
     }
 
 
