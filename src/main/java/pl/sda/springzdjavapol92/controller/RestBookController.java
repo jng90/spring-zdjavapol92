@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.springzdjavapol92.errors.ValidationExceptionHandler;
 import pl.sda.springzdjavapol92.model.Book;
 
 import javax.validation.Valid;
@@ -15,7 +16,7 @@ import java.util.Optional;
 
 @RequestMapping("/api/v1")
 @RestController
-public class RestBookController {
+public class RestBookController extends ValidationExceptionHandler {
 
     @PostMapping("/books")
     public ResponseEntity<Book> addBook(@Valid @RequestBody Book book) {

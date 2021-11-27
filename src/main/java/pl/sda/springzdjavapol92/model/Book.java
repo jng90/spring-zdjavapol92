@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -14,8 +15,8 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 
 public class Book {
-        @NotNull
-        @Length(min =1, max = 120)
+        @NotBlank
+        @Length(max = 120)
         private String title;
         @Length (min = 3, max = 15)
         private String author;
