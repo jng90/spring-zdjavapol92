@@ -27,4 +27,11 @@ public class RestBookController {
                 .build();
         return ResponseEntity.of(id < 20 ? Optional.of(book) : Optional.empty());
     }
+
+    @PatchMapping("/books/author/{id}")
+    public ResponseEntity<Book> updateBookAuthor(@PathVariable long id, @RequestParam String value){
+        System.out.println(id);
+        System.out.println(value);
+        return ResponseEntity.ok().build();
+    }
 }

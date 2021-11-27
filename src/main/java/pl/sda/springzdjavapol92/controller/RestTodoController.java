@@ -70,5 +70,18 @@ public class RestTodoController {
         return ResponseEntity.of(id < 10 ? Optional.of(todo) : Optional.empty());
     }
 
+    @DeleteMapping("/api/v1/todos/{id}")
+    public ResponseEntity<Todo> deleteTodo(@PathVariable long id){
+        //TODO usunac z repozytorium obiekt o danym id
+        Todo todo = Todo.builder()
+                .id(id)
+                .person("TEST")
+                .deadline("2021-12-12")
+                .title("test")
+                .completed(true)
+                .build();
+        return ResponseEntity.of(id < 10 ? Optional.of(todo) : Optional.empty());
+    }
+
 
 }
