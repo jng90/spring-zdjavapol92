@@ -3,25 +3,30 @@ package pl.sda.springzdjavapol92.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.springzdjavapol92.dto.NewTodoDto;
 import pl.sda.springzdjavapol92.model.Todo;
 
+import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 public class RestTodoController {
 
     @GetMapping("/api/v1/test")
-    public String test () {
+    public String test() {
         return "test";
     }
 
-    @PostMapping("/api/v1/todos/{id}")
-    public ResponseEntity<Todo> addTodo(@RequestBody NewTodoDto dto){
+    @PostMapping("/api/v1/todos")
+    public ResponseEntity<Todo> addTodo(@Valid @RequestBody NewTodoDto dto) {
         //TODO zapisac do bazy przeslanie zadanie
         final Todo todo = Todo.builder()
                 .person(dto.getPerson())
@@ -46,7 +51,7 @@ public class RestTodoController {
     }
 
     @PutMapping("/api/v1/todos/{id}")
-    public ResponseEntity<Todo> updateTodo(@PathVariable long id, @RequestBody NewTodoDto todoUpdate){
+    public ResponseEntity<Todo> updateTodo(@PathVariable long id, @RequestBody NewTodoDto todoUpdate) {
         //TODO wyciagamy obiekt o danym id i zmieniamy w nim pola na wartosci w todoUpdate
         Todo todo = Todo.builder()
                 .id(id)
@@ -58,7 +63,7 @@ public class RestTodoController {
     }
 
     @PatchMapping("/api/v1/todos/{id}")
-    public ResponseEntity<Todo> setTodoAsCompleted(@PathVariable long id){
+    public ResponseEntity<Todo> setTodoAsCompleted(@PathVariable long id) {
         //TODO wyciagnac zadanie z repozytorium i ustawic w nim pole completed na true
         Todo todo = Todo.builder()
                 .id(id)
@@ -71,7 +76,7 @@ public class RestTodoController {
     }
 
     @DeleteMapping("/api/v1/todos/{id}")
-    public ResponseEntity<Todo> deleteTodo(@PathVariable long id){
+    public ResponseEntity<Todo> deleteTodo(@PathVariable long id) {
         //TODO usunac z repozytorium obiekt o danym id
         Todo todo = Todo.builder()
                 .id(id)
@@ -83,5 +88,15 @@ public class RestTodoController {
         return ResponseEntity.of(id < 10 ? Optional.of(todo) : Optional.empty());
     }
 
-
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleValidationException(MethodArgumentNotValidException exception){
+        Map<String, String> errors = new HashMap<>();
+        exception.getBindingResult().getAllErrors().forEach(
+                error -> {
+                    errors.put(((FieldError)error).getField(), error.getDefaultMessage());
+                }
+        );
+        return errors;
+    }
 }
