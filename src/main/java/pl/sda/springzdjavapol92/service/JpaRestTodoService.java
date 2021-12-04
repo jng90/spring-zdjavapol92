@@ -66,7 +66,7 @@ public class JpaRestTodoService implements RestTodoService{
     }
 
     @Override
-    public void setAsComleted(long id) {
+    public void setAsCompleted(long id) {
         final Optional<EntityTodo> optionalEntityTodo = todoRepository.findById(id);
         if(optionalEntityTodo.isPresent()){
             final EntityTodo entityTodo = optionalEntityTodo.get();

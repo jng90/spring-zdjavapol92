@@ -3,13 +3,11 @@ package pl.sda.springzdjavapol92;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import pl.sda.springzdjavapol92.entity.AppUser;
 import pl.sda.springzdjavapol92.entity.Article;
 import pl.sda.springzdjavapol92.entity.Author;
 import pl.sda.springzdjavapol92.entity.EntityBook;
-import pl.sda.springzdjavapol92.repository.ArticleRepository;
-import pl.sda.springzdjavapol92.repository.AuthorRepository;
-import pl.sda.springzdjavapol92.repository.BookRepository;
-import pl.sda.springzdjavapol92.repository.TodoRepository;
+import pl.sda.springzdjavapol92.repository.*;
 
 import java.util.*;
 
@@ -19,12 +17,14 @@ public class SpringZdjavapol92Application implements CommandLineRunner {
     final BookRepository bookRepository;
     final ArticleRepository articleRepository;
     final AuthorRepository authorRepository;
+    final AppUserRepository appUserRepository;
 
-    public SpringZdjavapol92Application(TodoRepository todoRepository, BookRepository bookRepository, ArticleRepository articleRepository, AuthorRepository authorRepository) {
+    public SpringZdjavapol92Application(TodoRepository todoRepository, BookRepository bookRepository, ArticleRepository articleRepository, AuthorRepository authorRepository, AppUserRepository appUserRepository) {
         this.todoRepository = todoRepository;
         this.bookRepository = bookRepository;
         this.articleRepository = articleRepository;
         this.authorRepository = authorRepository;
+        this.appUserRepository = appUserRepository;
     }
 
     public static void main(String[] args) {
@@ -60,30 +60,22 @@ public class SpringZdjavapol92Application implements CommandLineRunner {
                 .title("Java for greens")
                 .build());
         bookRepository.flush();
-        System.out.println("Książki danego autora");
-        System.out.println(bookRepository.findByAuthor("Bloch"));
-        System.out.println("Liczba książek danego autora");
-        System.out.println(bookRepository.countByAuthor("Bloch"));
-        System.out.println("Liczba książek danego autora o tytule zaczynającym sie literą J");
-        System.out.println(bookRepository.countByAuthorAndAndTitleStartingWith("Bloch", "J"));
-        System.out.println(bookRepository.getAllTitles());
-        final List<Object[]> result = bookRepository.getIdAndTitles();
-        result.forEach(row -> {
-            System.out.println(row[0] + " " + row[1]);
-        });
-
-        System.out.println("Związek artykułów z autorami");
-        Author author = Author.builder().firstName("Adam").lastName("Nowak").build();
-        Article article = Article.builder().title("Java").authors(Set.of(author)).build();
-
-        articleRepository.save(article);
-        articleRepository.save(
-                Article.builder()
-                        .title("C#")
-                        .authors(Set.of(Author.builder().firstName("Adam").lastName("Nowak").build()))
+        appUserRepository.save(
+                AppUser.builder()
+                        .email("karol@op.pl")
+                        .password("$2a$12$rZaMF9qvM5yw1mNIMeNbjeIiSLUL/p9Jf8jlFEUtGaqhS9zJWtOH.")
+                        .enabled(true)
+                        .role("ROLE_USER")
                         .build()
         );
-        System.out.println(articleRepository.findAll());
-        System.out.println(authorRepository.findAll().get(0).getArticles());
+        //Dodaj uzytkownika z rola admin
+        appUserRepository.save(
+                AppUser.builder()
+                        .email("admin@admin.pl")
+                        .password("$2a$12$8oCEcOcaLQ3TQzLV9bYv/.FtpzCInluEz8G0z/av6c9xkxPMHhrmm")
+                        .enabled(true)
+                        .role("ROLE_ADMIN")
+                        .build()
+        );
     }
 }

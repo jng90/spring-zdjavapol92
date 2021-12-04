@@ -12,5 +12,5 @@ public interface RestTodoService {
     Optional<DomainTodo> delete(long id);
     Optional<DomainTodo> findById(long id);
     List<DomainTodo> findAll();
-    void setAsComleted(long id);
+    void setAsCompleted(long id);
 }
