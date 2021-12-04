@@ -1,4 +1,4 @@
-package pl.sda.springzdjavapol92.Service;
+package pl.sda.springzdjavapol92.service;
 
 import pl.sda.springzdjavapol92.model.Todo;
 

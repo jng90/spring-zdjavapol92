@@ -1,4 +1,4 @@
-package pl.sda.springzdjavapol92.Service;
+package pl.sda.springzdjavapol92.service;
 
 import org.springframework.stereotype.Service;
 import pl.sda.springzdjavapol92.model.Todo;

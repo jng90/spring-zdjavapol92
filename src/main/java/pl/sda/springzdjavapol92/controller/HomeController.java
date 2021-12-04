@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.sda.springzdjavapol92.Service.TodoService;
+import pl.sda.springzdjavapol92.service.TodoService;
 import pl.sda.springzdjavapol92.model.Todo;
 
 @Controller
