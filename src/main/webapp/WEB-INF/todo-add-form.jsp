@@ -7,6 +7,7 @@
 
     <h2>Dodaj zadanie do wykonania</h2>
     <form method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         <div class="mb-3">
             <label for="title">Tytuł zadania</label>
             <input class="form-control" type="text" name="title" id="title"/>
